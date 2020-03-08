@@ -22,7 +22,6 @@ static int occuredNumberIndex;
 
 int main()
 {
-	list<State> allResults;
 	unorderedLinkedList<State> linkedListResults;
 	Setup();
 	for (int i = 0; i < 10; i++)
@@ -35,7 +34,6 @@ int main()
 		GenerateRandomPositions(randomPositions);
 		WriteToArray(arr, randomPositions);
 		arr.list[9] = randomCalls;
-		allResults.push_back(arr);
 		linkedListResults.insertLast(arr);
 	}
 
