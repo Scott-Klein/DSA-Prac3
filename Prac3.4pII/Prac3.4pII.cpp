@@ -4,23 +4,15 @@
 #include <vector>
 #include "unorderedLinkedList.h"
 #include "State.h"
-using namespace std;
+#include "main.h"
 
-#define nine 9
-void Setup();
-void GenerateRandomPositions(vector<int>& randomPositions);
-int GetNewRandom();
-void WriteToArray(vector<int>& arr, vector<int>& randomPositions);
-void PrintArray(vector<vector<int>> results);
-void PrintVector(vector<int> result);
-void LinearSearch(vector<vector<int>> subject);
+using namespace std;
 
 static int randomCalls;
 static vector<int> occuredNumbers;
 
 int main()
 {
-	vector<vector<int>> allResults;
 	unorderedLinkedList<State> linkedListResults;
 	Setup();
 	int vectorSize = 50000;
@@ -29,14 +21,14 @@ int main()
 	{
 		randomCalls = 0;
 		occuredNumbers = { 0,1,2,3,4,5,6,7,8 };
-		vector<int> arr = { 0,0,0,0,0,0,0,0,0,0 };
+		State arr;
 		vector<int> randomPositions = { 0,0,0,0,0,0 };
 		GenerateRandomPositions(randomPositions);
 		WriteToArray(arr, randomPositions);
-		arr[9] = randomCalls;
-		allResults.push_back(arr);
+		arr.list[9] = randomCalls;
+		linkedListResults.insertLast(arr);
 	}
-	LinearSearch(allResults);
+	LinearSearch(linkedListResults);
 	//PrintArray(allResults);
 }
 
@@ -59,26 +51,22 @@ void FoundMatch(vector<int> match, int index)
 	cout << "Found the vector at index: " << index;
 }
 
-void LinearSearch(vector<vector<int>> subject)
+void LinearSearch(unorderedLinkedList<State> subject)
 {
-	bool found = false;
-	vector<int> result;
-	int index = -1;
-	for (int i = 0; i < subject.size(); i++)
+	State searchItem;
+	int insertion[10] = { 2,1,5,4,0,0,6,0,3,0 };
+	for (int i = 0; i < 10; i++)
 	{
-		if (IsMatch(subject[i]))
-		{
-			found = true;
-			index = i;
-		}
+		searchItem.list[i] = insertion[i];
 	}
-	if (found)
+
+	if (subject.search(searchItem))
 	{
-		FoundMatch(result, index);
+		cout << "Found the match";
 	}
 	else
 	{
-		cout << "Found nothing";
+		cout << "Did not find anything";
 	}
 }
 
@@ -105,11 +93,11 @@ int GetNewRandom()
 }
 
 
-void WriteToArray(vector<int>& arr, vector<int>& randomPositions)
+void WriteToArray(State& arr, vector<int>& randomPositions)
 {
 	for (int i = 0; i < 6; i++)
 	{
-		arr[randomPositions[i]] = i + 1;
+		arr.list[randomPositions[i]] = i + 1;
 	}
 }
 

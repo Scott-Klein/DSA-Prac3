@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linkedList.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="unorderedLinkedList.h" />
   </ItemGroup>
